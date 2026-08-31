@@ -15,7 +15,7 @@ public class GameRendererMixin
 {
 
     @Inject(method = "getFov", at = @At("RETURN"), cancellable = true)
-    private void applyDynamicFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cir) 
+    private void applyDynamicFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Float> cir) 
     {
         
         if (DynamicFovClient.needsFovAnimation) 
@@ -32,18 +32,21 @@ public class GameRendererMixin
 
             DynamicFovConfig config = AutoConfig.getConfigHolder(DynamicFovConfig.class).getConfig();
 
-            // Updated variable name here
             if (elapsed < config.overallAnimationDurationMs) 
             {
-                double baseFov = cir.getReturnValueD();
-                double startFov = baseFov - config.initialFovOffset;
+                // 1. Fetch float return value directly
+                float baseFov = cir.getReturnValue(); 
+                float startFov = baseFov - config.initialFovOffset;
 
-                double t = (double) elapsed / config.overallAnimationDurationMs;
+                // 2. Perform animation math using float precision
+                float t = (float) elapsed / config.overallAnimationDurationMs;
 
-                double invT = 1.0 - t;
-                double easeOut = 1.0 - (invT * invT * invT);
+                float invT = 1.0f - t;
+                float easeOut = 1.0f - (invT * invT * invT);
 
-                double currentFov = startFov + ((baseFov - startFov) * easeOut);
+                float currentFov = startFov + ((baseFov - startFov) * easeOut);
+
+                // 3. Set return value as float
                 cir.setReturnValue(currentFov);
             } 
             else 
