@@ -1,0 +1,18 @@
+{
+  "text.autoconfig.dynamicfov.title": "Join Lerp Options",
+
+  "text.autoconfig.dynamicfov.option.initialFovOffset": "Initial FOV offset",
+  "text.autoconfig.dynamicfov.option.initialFovOffset.@Tooltip": "The FOV offset applied at the start of the animation.",
+
+  "text.autoconfig.dynamicfov.option.overallAnimationDurationMs": "Animation duration (ms)",
+  "text.autoconfig.dynamicfov.option.overallAnimationDurationMs.@Tooltip": "Total duration for both FOV zoom and screen fade.",
+
+  "text.autoconfig.dynamicfov.option.fadeFromBlack": "Fade from black",
+  "text.autoconfig.dynamicfov.option.fadeFromBlack.@Tooltip": "Enables or disables the black screen overlay transition.",
+
+  "text.autoconfig.dynamicfov.option.easingOrder": "Ease order",
+  "text.autoconfig.dynamicfov.option.easingOrder.@Tooltip": "Controls animation order (1 = Linear, 5 = Quintic, ... upto 10).",
+
+  "text.autoconfig.dynamicfov.option.worldLoadCooldownMs": "Effect cooldown (ms)",
+  "text.autoconfig.dynamicfov.option.worldLoadCooldownMs.@Tooltip": "Use this to alleviate not being able to see the animation if the game lags."
+}
