@@ -34,19 +34,17 @@ public class GameRendererMixin
 
             if (elapsed < config.overallAnimationDurationMs) 
             {
-                // 1. Fetch float return value directly
                 float baseFov = cir.getReturnValue(); 
                 float startFov = baseFov - config.initialFovOffset;
 
-                // 2. Perform animation math using float precision
                 float t = (float) elapsed / config.overallAnimationDurationMs;
 
                 float invT = 1.0f - t;
-                float easeOut = 1.0f - (invT * invT * invT);
+                // Quintic ease-out curve (invT raised to the 5th power)
+                float easeOut = 1.0f - (invT * invT * invT * invT * invT);
 
                 float currentFov = startFov + ((baseFov - startFov) * easeOut);
 
-                // 3. Set return value as float
                 cir.setReturnValue(currentFov);
             } 
             else 
