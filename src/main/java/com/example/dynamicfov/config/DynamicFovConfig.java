@@ -16,4 +16,8 @@ public class DynamicFovConfig implements ConfigData
 
     @ConfigEntry.Gui.Tooltip(count = 1)
     public boolean fadeFromBlack = true;
+
+    @ConfigEntry.BoundedDiscrete(min = 1, max = 10)
+    @ConfigEntry.Gui.Tooltip(count = 1)
+    public int easingOrder = 5; // Default polynomial power (e.g., 5 for quintic)
 }
