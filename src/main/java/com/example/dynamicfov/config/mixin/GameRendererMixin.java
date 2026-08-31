@@ -39,9 +39,11 @@ public class GameRendererMixin
 
                 float t = (float) elapsed / config.overallAnimationDurationMs;
 
-                float invT = 1.0f - t;
-                // Quintic ease-out curve (invT raised to the 5th power)
-                float easeOut = 1.0f - (invT * invT * invT * invT * invT);
+                // Clamp easing order between 1 and 10 for safety
+                int order = Math.max(1, Math.min(10, config.easingOrder));
+
+                // Variable ease-out formula: 1 - (1 - t)^order
+                float easeOut = 1.0f - (float) Math.pow(1.0 - t, order);
 
                 float currentFov = startFov + ((baseFov - startFov) * easeOut);
 
