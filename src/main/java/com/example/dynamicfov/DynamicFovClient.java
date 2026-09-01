@@ -15,6 +15,9 @@ public class DynamicFovClient implements ClientModInitializer
     public static long worldLoadTime = -1;
     public static long animationStartTime = -1;
 
+    // Session counter: tracks world joins since client launch
+    public static int worldLoadCount = 0;
+
     @Override
     public void onInitializeClient() 
     {
@@ -38,12 +41,11 @@ public class DynamicFovClient implements ClientModInitializer
 
             long currentTime = System.currentTimeMillis();
 
-            // 1. Draw solid black screen immediately during world load cooldown
+            // 1. Draw solid black during cooldown ONLY on the first world load of the session
             if (needsFovAnimation && worldLoadTime > 0) 
             {
-                if ((currentTime - worldLoadTime) < config.worldLoadCooldownMs) 
+                if (worldLoadCount == 0 && (currentTime - worldLoadTime) < config.worldLoadCooldownMs) 
                 {
-                    // Full black screen (alpha 255)
                     drawContext.fill(0, 0, width, height, 0xFF000000);
                     return;
                 }
@@ -59,7 +61,6 @@ public class DynamicFovClient implements ClientModInitializer
                 {
                     double t = (double) elapsed / config.overallAnimationDurationMs;
                     
-                    // Dynamic easing power using config order
                     int order = Math.max(1, Math.min(10, config.easingOrder));
                     double easeOut = 1.0 - Math.pow(1.0 - t, order);
 
@@ -71,6 +72,11 @@ public class DynamicFovClient implements ClientModInitializer
                         int color = (a << 24) | 0x000000; 
                         drawContext.fill(0, 0, width, height, color);
                     }
+                } 
+                else 
+                {
+                    // Increment session counter after completion
+                    worldLoadCount++;
                 }
             }
         });
