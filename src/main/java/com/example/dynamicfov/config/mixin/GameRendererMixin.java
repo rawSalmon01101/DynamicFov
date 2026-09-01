@@ -20,26 +20,27 @@ public class GameRendererMixin
         DynamicFovConfig config = AutoConfig.getConfigHolder(DynamicFovConfig.class).getConfig();
         long currentTime = System.currentTimeMillis();
 
-        // 1. Instantly apply state on first render during cooldown
+        // Check if cooldown applies (only if worldLoadCount == 0)
         if (DynamicFovClient.needsFovAnimation) 
         {
-            if (DynamicFovClient.worldLoadTime > 0 && 
+            if (DynamicFovClient.worldLoadCount == 0 && 
+                DynamicFovClient.worldLoadTime > 0 && 
                (currentTime - DynamicFovClient.worldLoadTime) < config.worldLoadCooldownMs) 
             {
-                // Cooldown actively waiting: hold initial offset static
+                // First load of launch: hold static offset during cooldown
                 float baseFov = cir.getReturnValue();
                 cir.setReturnValue(baseFov - config.initialFovOffset);
                 return;
             } 
             else 
             {
-                // Cooldown finished: start the animation timer
+                // Subsequent loads or completed cooldown: start animation immediately
                 DynamicFovClient.animationStartTime = currentTime;
                 DynamicFovClient.needsFovAnimation = false;
             }
         }
 
-        // 2. Run the smooth transition
+        // Run smooth FOV transition
         long startTime = DynamicFovClient.animationStartTime;
         if (startTime > 0) 
         {
@@ -59,6 +60,8 @@ public class GameRendererMixin
             } 
             else 
             {
+                // Increment session counter on animation end
+                DynamicFovClient.worldLoadCount++;
                 DynamicFovClient.animationStartTime = -1;
             }
         }
