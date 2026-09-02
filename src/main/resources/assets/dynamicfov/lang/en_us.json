@@ -15,4 +15,10 @@
 
   "text.autoconfig.dynamicfov.option.worldLoadCooldownMs": "Effect cooldown (ms)",
   "text.autoconfig.dynamicfov.option.worldLoadCooldownMs.@Tooltip": "Use this to alleviate not being able to see the animation if the game lags."
+
+  "text.autoconfig.dynamicfov.option.useBezierCurve": "Use new Bezier curve system",
+  "text.autoconfig.dynamicfov.option.useBezierCurve.@Tooltip": "Gives finer control over animation.",
+
+  "text.autoconfig.dynamicfov.option.bezierCurveValues": "Comma-separated CSS format Bezier curve",
+  "text.autoconfig.dynamicfov.option.bezierCurveValues.@Tooltip": "Format: x1, y1, x2, y2. !!Bad formatting may crash the game!!"
 }
