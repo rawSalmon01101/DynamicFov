@@ -1,6 +1,7 @@
 package com.example.dynamicfov;
 
 import com.example.dynamicfov.config.DynamicFovConfig;
+import com.example.dynamicfov.util.BezierUtil;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
@@ -59,12 +60,21 @@ public class DynamicFovClient implements ClientModInitializer
 
                 if (elapsed < config.overallAnimationDurationMs) 
                 {
-                    double t = (double) elapsed / config.overallAnimationDurationMs;
-                    
-                    int order = Math.max(1, Math.min(10, config.easingOrder));
-                    double easeOut = 1.0 - Math.pow(1.0 - t, order);
+                    float t = (float) elapsed / config.overallAnimationDurationMs;
+                    float easeFactor;
 
-                    float alpha = (float) (1.0 - easeOut);
+                    // Branch between CSS Bézier curve and polynomial order
+                    if (config.useBezierCurve) 
+                    {
+                        easeFactor = BezierUtil.evalBezier(config.bezierCurveValues, t);
+                    } 
+                    else 
+                    {
+                        int order = Math.max(1, Math.min(10, config.easingOrder));
+                        easeFactor = 1.0f - (float) Math.pow(1.0 - t, order);
+                    }
+
+                    float alpha = 1.0f - easeFactor;
                     int a = (int) (alpha * 255.0f);
                     
                     if (a > 0) 
