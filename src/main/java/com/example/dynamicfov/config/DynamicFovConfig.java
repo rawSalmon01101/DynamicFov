@@ -23,5 +23,11 @@ public class DynamicFovConfig implements ConfigData
 
     @ConfigEntry.BoundedDiscrete(min = 0, max = 3000)
     @ConfigEntry.Gui.Tooltip(count = 1)
-    public int worldLoadCooldownMs = 1000; // Delay before animation starts (0 - 3000 ms)
+    public int worldLoadCooldownMs = 1000;
+
+    @ConfigEntry.Gui.Tooltip(count = 1)
+    public boolean useBezierCurve = false;
+
+    @ConfigEntry.Gui.Tooltip(count = 1)
+    public String bezierCurveValues = "0.2, 0.7, 0, 1";
 }
