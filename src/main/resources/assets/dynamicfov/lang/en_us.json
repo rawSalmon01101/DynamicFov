@@ -14,7 +14,7 @@
   "text.autoconfig.dynamicfov.option.easingOrder.@Tooltip": "Controls animation order (1 = Linear, 5 = Quintic, ... upto 10).",
 
   "text.autoconfig.dynamicfov.option.worldLoadCooldownMs": "Effect cooldown (ms)",
-  "text.autoconfig.dynamicfov.option.worldLoadCooldownMs.@Tooltip": "Use this to alleviate not being able to see the animation if the game lags."
+  "text.autoconfig.dynamicfov.option.worldLoadCooldownMs.@Tooltip": "Use this to alleviate not being able to see the animation if the game lags.",
 
   "text.autoconfig.dynamicfov.option.useBezierCurve": "Use new Bezier curve system",
   "text.autoconfig.dynamicfov.option.useBezierCurve.@Tooltip": "Gives finer control over animation.",

@@ -26,7 +26,7 @@ public class GameRendererMixin
         {
             if (DynamicFovClient.worldLoadCount == 0 && 
                 DynamicFovClient.worldLoadTime > 0 && 
-               (currentTime - DynamicFovClient.worldLoadTime) < config.worldLoadCooldownMs) 
+            (currentTime - DynamicFovClient.worldLoadTime) < config.worldLoadCooldownMs) 
             {
                 // Hold static FOV offset during the cooldown delay
                 float baseFov = cir.getReturnValue();
@@ -35,7 +35,10 @@ public class GameRendererMixin
             } 
             else 
             {
-                // Cooldown elapsed or skipped: launch the animation timer
+                // Cooldown elapsed or skipped: start animation AND consume the first-load flag immediately
+                if (DynamicFovClient.worldLoadCount == 0) {
+                    DynamicFovClient.worldLoadCount = 1; // Ensures future world joins skip cooldown regardless of lag!
+                }
                 DynamicFovClient.animationStartTime = currentTime;
                 DynamicFovClient.needsFovAnimation = false;
             }
