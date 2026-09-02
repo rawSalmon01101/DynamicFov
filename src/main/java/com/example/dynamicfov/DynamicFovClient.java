@@ -55,7 +55,7 @@ public class DynamicFovClient implements ClientModInitializer
                 }
             }
 
-            // 2. Render smooth black fade-out during animation
+            // 2. Render smooth black fade during animation
             long startTime = animationStartTime;
             if (startTime > 0) 
             {

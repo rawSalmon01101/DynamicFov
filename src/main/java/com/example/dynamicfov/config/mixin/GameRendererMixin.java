@@ -23,7 +23,7 @@ public class GameRendererMixin
 
         long totalDurationMs = config.worldLoadCooldownMs + config.overallAnimationDurationMs;
 
-        //if total duration has passed since world load, consume the launch state by coercion
+        //if total duration passed since world load, consume the launch state by coercion
         if (DynamicFovClient.worldLoadCount == 0 && DynamicFovClient.worldLoadTime > 0)
         {
             if ((currentTime - DynamicFovClient.worldLoadTime) >= totalDurationMs)
