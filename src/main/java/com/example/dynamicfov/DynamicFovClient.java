@@ -42,13 +42,16 @@ public class DynamicFovClient implements ClientModInitializer
 
             long currentTime = System.currentTimeMillis();
 
+            long totalDurationMs = config.worldLoadCooldownMs + config.overallAnimationDurationMs;
+
             // 1. Draw solid black during cooldown ONLY on the first world load of the session
             if (needsFovAnimation && worldLoadTime > 0) 
             {
-                if (worldLoadCount == 0 && (currentTime - worldLoadTime) < config.worldLoadCooldownMs) 
+                if ((currentTime - worldLoadTime) >= totalDurationMs)
                 {
-                    drawContext.fill(0, 0, width, height, 0xFF000000);
-                    return;
+                    worldLoadCount += 1;
+                    needsFovAnimation = false;
+                    animationStartTime = -1;
                 }
             }
 

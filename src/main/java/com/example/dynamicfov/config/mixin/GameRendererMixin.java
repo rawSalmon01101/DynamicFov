@@ -21,6 +21,19 @@ public class GameRendererMixin
         DynamicFovConfig config = AutoConfig.getConfigHolder(DynamicFovConfig.class).getConfig();
         long currentTime = System.currentTimeMillis();
 
+        long totalDurationMs = config.worldLoadCooldownMs + config.overallAnimationDurationMs;
+
+        //if total duration has passed since world load, consume the launch state by coercion
+        if (DynamicFovClient.worldLoadCount == 0 && DynamicFovClient.worldLoadTime > 0)
+        {
+            if ((currentTime - DynamicFovClient.worldLoadTime) >= totalDurationMs)
+            {
+                DynamicFovClient.worldLoadCount += 1;
+                DynamicFovClient.needsFovAnimation = false;
+                DynamicFovClient.animationStartTime = -1;
+            }
+        }
+
         // Check if cooldown applies (only on the first world load of the launch session)
         if (DynamicFovClient.needsFovAnimation) 
         {
@@ -35,10 +48,7 @@ public class GameRendererMixin
             } 
             else 
             {
-                // Cooldown elapsed or skipped: start animation AND consume the first-load flag immediately
-                if (DynamicFovClient.worldLoadCount == 0) {
-                    DynamicFovClient.worldLoadCount = 1; // Ensures future world joins skip cooldown regardless of lag!
-                }
+                // Cooldown elapsed or skipped: start animation timer
                 DynamicFovClient.animationStartTime = currentTime;
                 DynamicFovClient.needsFovAnimation = false;
             }
