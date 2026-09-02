@@ -2,6 +2,7 @@ package com.example.dynamicfov.mixin;
 
 import com.example.dynamicfov.DynamicFovClient;
 import com.example.dynamicfov.config.DynamicFovConfig;
+import com.example.dynamicfov.util.BezierUtil;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
@@ -20,21 +21,21 @@ public class GameRendererMixin
         DynamicFovConfig config = AutoConfig.getConfigHolder(DynamicFovConfig.class).getConfig();
         long currentTime = System.currentTimeMillis();
 
-        // Check if cooldown applies (only if worldLoadCount == 0)
+        // Check if cooldown applies (only on the first world load of the launch session)
         if (DynamicFovClient.needsFovAnimation) 
         {
             if (DynamicFovClient.worldLoadCount == 0 && 
                 DynamicFovClient.worldLoadTime > 0 && 
                (currentTime - DynamicFovClient.worldLoadTime) < config.worldLoadCooldownMs) 
             {
-                // First load of launch: hold static offset during cooldown
+                // Hold static FOV offset during the cooldown delay
                 float baseFov = cir.getReturnValue();
                 cir.setReturnValue(baseFov - config.initialFovOffset);
                 return;
             } 
             else 
             {
-                // Subsequent loads or completed cooldown: start animation immediately
+                // Cooldown elapsed or skipped: launch the animation timer
                 DynamicFovClient.animationStartTime = currentTime;
                 DynamicFovClient.needsFovAnimation = false;
             }
@@ -52,16 +53,25 @@ public class GameRendererMixin
                 float startFov = baseFov - config.initialFovOffset;
 
                 float t = (float) elapsed / config.overallAnimationDurationMs;
-                int order = Math.max(1, Math.min(10, config.easingOrder));
-                float easeOut = 1.0f - (float) Math.pow(1.0 - t, order);
+                float easeFactor;
 
-                float currentFov = startFov + ((baseFov - startFov) * easeOut);
+                // Branch depending on whether Bezier curves or polynomial order are enabled
+                if (config.useBezierCurve) 
+                {
+                    easeFactor = BezierUtil.evalBezier(config.bezierCurveValues, t);
+                } 
+                else 
+                {
+                    int order = Math.max(1, Math.min(10, config.easingOrder));
+                    easeFactor = 1.0f - (float) Math.pow(1.0 - t, order);
+                }
+
+                float currentFov = startFov + ((baseFov - startFov) * easeFactor);
                 cir.setReturnValue(currentFov);
             } 
             else 
             {
-                // Increment session counter on animation end
-                DynamicFovClient.worldLoadCount++;
+                // Reset animation state once time completes
                 DynamicFovClient.animationStartTime = -1;
             }
         }
