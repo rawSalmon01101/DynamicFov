@@ -32,9 +32,9 @@ public class GameRendererMixin
                 (currentTime - DynamicFovClient.worldLoadTime) < config.worldLoadCooldownMs) 
             {
                 // Force a full black clear screen before anything else draws
-                com.mojang.blaze3d.systems.RenderSystem.clear(
-                    org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT | org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT, 
-                    false
+                com.mojang.blaze3d.systems.RenderSystem.clear
+                (
+                    org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT | org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT
                 );
             }
         }
