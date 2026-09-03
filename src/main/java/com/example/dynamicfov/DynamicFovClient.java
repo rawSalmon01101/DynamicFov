@@ -66,7 +66,7 @@ public class DynamicFovClient implements ClientModInitializer
                     float t = (float) elapsed / config.overallAnimationDurationMs;
                     float easeFactor;
 
-                    // Branch between CSS Bézier curve and polynomial order
+                    // Branch between CSS Bezier curve and polynomial order
                     if (config.useBezierCurve) 
                     {
                         easeFactor = BezierUtil.evalBezier(config.bezierCurveValues, t);

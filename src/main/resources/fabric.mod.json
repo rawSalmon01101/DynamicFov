@@ -1,7 +1,7 @@
 {
     "schemaVersion": 1,
     "id": "dynamicfov",
-    "version": "1 (Test)",
+    "version": "1 (Beta)",
     "name": "Dynamic FOV",
     "description": "Adjusts FOV smoothly when loading into a world.",
     "authors": ["rawSalmon01101"],

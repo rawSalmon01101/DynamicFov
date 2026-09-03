@@ -3,11 +3,10 @@ package com.example.dynamicfov.config;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
-
+//fix #8 (tweaks to Bezier)
 @Config(name = "dynamicfov")
 public class DynamicFovConfig implements ConfigData 
 {
-
     @ConfigEntry.Gui.Tooltip(count = 1)
     public int initialFovOffset = 20;
 

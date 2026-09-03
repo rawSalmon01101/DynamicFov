@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(GameRenderer.class)
 public class GameRendererMixin 
 {
-    //fix #7 (see through black screen on frame 0)
+    //fix issue #7 (see through black screen on frame 0)
     @Inject(method = "render", at = @At("HEAD"))
     private void renderEarlyBlackOverlay(RenderTickCounter tickCounter, boolean renderLevel, CallbackInfo ci) 
     {
