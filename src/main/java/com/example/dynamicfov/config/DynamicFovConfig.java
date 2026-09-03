@@ -7,6 +7,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 @Config(name = "dynamicfov")
 public class DynamicFovConfig implements ConfigData 
 {
+    @ConfigEntry.BoundedDiscrete(min = 1, max = 30)
     @ConfigEntry.Gui.Tooltip(count = 1)
     public int initialFovOffset = 20;
 

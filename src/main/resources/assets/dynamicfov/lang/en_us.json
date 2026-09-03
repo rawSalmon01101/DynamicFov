@@ -1,24 +1,24 @@
 {
-  "text.autoconfig.dynamicfov.title": "Join Lerp Options",
+  "text.autoconfig.dynamicfov.title": "Classic Join Animation settings",
 
-  "text.autoconfig.dynamicfov.option.initialFovOffset": "Initial FOV offset",
-  "text.autoconfig.dynamicfov.option.initialFovOffset.@Tooltip": "The FOV offset applied at the start of the animation.",
+  "text.autoconfig.dynamicfov.option.initialFovOffset": "Start animating from FOV",
+  "text.autoconfig.dynamicfov.option.initialFovOffset.@Tooltip": "From what depth should the camera lerp?",
 
   "text.autoconfig.dynamicfov.option.overallAnimationDurationMs": "Animation duration (ms)",
-  "text.autoconfig.dynamicfov.option.overallAnimationDurationMs.@Tooltip": "Total duration for both FOV zoom and screen fade.",
+  "text.autoconfig.dynamicfov.option.overallAnimationDurationMs.@Tooltip": "How long should the animation be?",
 
   "text.autoconfig.dynamicfov.option.fadeFromBlack": "Fade from black",
-  "text.autoconfig.dynamicfov.option.fadeFromBlack.@Tooltip": "Enables or disables the black screen overlay transition.",
+  "text.autoconfig.dynamicfov.option.fadeFromBlack.@Tooltip": "Should the animation begin from a black screen?",
 
-  "text.autoconfig.dynamicfov.option.easingOrder": "Ease order",
-  "text.autoconfig.dynamicfov.option.easingOrder.@Tooltip": "Controls animation order (1 = Linear, 5 = Quintic, ... upto 10).",
+  "text.autoconfig.dynamicfov.option.easingOrder": "Ease order [Deprecated]",
+  "text.autoconfig.dynamicfov.option.easingOrder.@Tooltip": "Change the polynomial order for animation (1 = Linear, 5 = Quintic, ... upto 10).",
 
-  "text.autoconfig.dynamicfov.option.worldLoadCooldownMs": "Effect cooldown (ms)",
-  "text.autoconfig.dynamicfov.option.worldLoadCooldownMs.@Tooltip": "Use this to alleviate not being able to see the animation if the game lags.",
+  "text.autoconfig.dynamicfov.option.worldLoadCooldownMs": "Effect \"Grace Period\" (ms)",
+  "text.autoconfig.dynamicfov.option.worldLoadCooldownMs.@Tooltip": "Change this if game lags upon first ever render.\n\nThis option applies a delay for these first launches,\nso that you can see the entire animation.",
 
-  "text.autoconfig.dynamicfov.option.useBezierCurve": "Use new Bezier curve system",
-  "text.autoconfig.dynamicfov.option.useBezierCurve.@Tooltip": "Gives finer control over animation.",
+  "text.autoconfig.dynamicfov.option.useBezierCurve": "Bezier curves",
+  "text.autoconfig.dynamicfov.option.useBezierCurve.@Tooltip": "Do you want to us the new Bezier system?\nThis disables polynomial curve.\nDisable this to use polynomial curve.",
 
-  "text.autoconfig.dynamicfov.option.bezierCurveValues": "Comma-separated CSS format Bezier curve",
-  "text.autoconfig.dynamicfov.option.bezierCurveValues.@Tooltip": "Format: x1, y1, x2, y2. !!Bad formatting may crash the game!!"
+  "text.autoconfig.dynamicfov.option.bezierCurveValues": "CSS format Curve for animating",
+  "text.autoconfig.dynamicfov.option.bezierCurveValues.@Tooltip": "Format: x1, y1, x2, y2. \n!! Bad formatting may yield bad result !!"
 }
