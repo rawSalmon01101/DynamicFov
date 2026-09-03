@@ -1,10 +1,10 @@
 {
     "schemaVersion": 1,
     "id": "dynamicfov",
-    "version": "1.0.0",
+    "version": "1 (Test)",
     "name": "Dynamic FOV",
     "description": "Adjusts FOV smoothly when loading into a world.",
-    "authors": ["You"],
+    "authors": ["rawSalmon01101"],
     "contact": {},
     "license": "MIT",
     "icon": "assets/dynamicfov/icon.png",

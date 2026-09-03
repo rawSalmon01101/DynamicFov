@@ -9,10 +9,10 @@ public class DynamicFovConfig implements ConfigData
 {
 
     @ConfigEntry.Gui.Tooltip(count = 1)
-    public int initialFovOffset = 10;
+    public int initialFovOffset = 20;
 
     @ConfigEntry.Gui.Tooltip(count = 1)
-    public int overallAnimationDurationMs = 2000;
+    public int overallAnimationDurationMs = 1500;
 
     @ConfigEntry.Gui.Tooltip(count = 1)
     public boolean fadeFromBlack = true;
@@ -26,8 +26,8 @@ public class DynamicFovConfig implements ConfigData
     public int worldLoadCooldownMs = 1000;
 
     @ConfigEntry.Gui.Tooltip(count = 1)
-    public boolean useBezierCurve = false;
+    public boolean useBezierCurve = true;
 
     @ConfigEntry.Gui.Tooltip(count = 1)
-    public String bezierCurveValues = "0.2, 0.7, 0, 1";
+    public String bezierCurveValues = "0.27, 0.89, 0, 0.99";
 }

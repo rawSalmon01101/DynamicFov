@@ -14,6 +14,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(GameRenderer.class)
 public class GameRendererMixin 
 {
+    //fix #7 (see through black screen on frame 0)
+    @Inject(method = "render", at = @At("HEAD"))
+    private void renderEarlyBlackOverlay(RenderTickCounter tickCounter, boolean renderLevel, CallbackInfo ci) 
+    {
+        DynamicFovConfig config = AutoConfig.getConfigHolder(DynamicFovConfig.class).getConfig();
+        if (!config.fadeFromBlack) return;
+
+        long currentTime = System.currentTimeMillis();
+
+        // Catch the state instantly on the first frame before level rendering starts
+        if (DynamicFovClient.needsFovAnimation && DynamicFovClient.worldLoadTime > 0) 
+        {
+            if (DynamicFovClient.worldLoadCount == 0 && 
+                (currentTime - DynamicFovClient.worldLoadTime) < config.worldLoadCooldownMs) 
+            {
+                // Force a full black clear screen before anything else draws
+                com.mojang.blaze3d.systems.RenderSystem.clear(
+                    org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT | org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT, 
+                    false
+                );
+            }
+        }
+    }
 
     @Inject(method = "getFov", at = @At("RETURN"), cancellable = true)
     private void applyDynamicFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Float> cir) 
